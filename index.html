@@ -16,6 +16,7 @@
 
     <title>Tony Dong's Resume</title>
     <!-- Hi -->
+    <!-- The style is kept in here, because I wanted this page to be independent -->
     <style type="text/css">
         #container
         {
@@ -24,7 +25,6 @@
             line-height: 12pt;
             margin-left: auto;
             margin-right: auto;
-			
         }
 
         @media screen
@@ -158,7 +158,7 @@
         .jobtitle:hover:after
         {
             content: attr(data-tooltip);
-            position: fixed;
+            position: absolute;
             background: #000;
             color: #FFF;
             border-radius: 10px;
@@ -168,6 +168,20 @@
             font-size: 11pt;
         }
     </style>
+
+    <script type="text/javascript">
+        var _gaq = _gaq || [];
+        _gaq.push(['_setAccount', 'UA-35036387-1']);
+        _gaq.push(['_setDomainName', 'tony-dong.com']);
+        _gaq.push(['_trackPageview']);
+
+        (function () {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+        })();
+
+    </script>
 </head>
 <body>
     <div id="container">
@@ -304,19 +318,5 @@
             </div>
         </div>
     </div>
-	<script type="text/javascript">
-
-	  var _gaq = _gaq || [];
-	  _gaq.push(['_setAccount', 'UA-35036387-1']);
-	  _gaq.push(['_setDomainName', 'tony-dong.com']);
-	  _gaq.push(['_trackPageview']);
-
-	  (function() {
-		var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-		ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-		var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-	  })();
-
-	</script>
 </body>
 </html>
