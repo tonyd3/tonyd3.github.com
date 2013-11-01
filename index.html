@@ -34,22 +34,28 @@
 		  
 			var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 		
-			var marker = new google.maps.Marker({
+			new google.maps.Marker({
 				position: new google.maps.LatLng(43.6433, -79.3792),
 				map: map,
 				title: 'Metric with special guest Stars\nAir Canada Centre\nNov 24, 2012'
 			});
  
-		  	var marker = new google.maps.Marker({
+		  	new google.maps.Marker({
 				position: new google.maps.LatLng(37.8089, -122.2692),
 				map: map,
 				title: 'Arctic Monkeys\nFox Theater\nSept 27, 2013'
 			});
 			
-			var marker = new google.maps.Marker({
+			new google.maps.Marker({
 				position: new google.maps.LatLng(37.4268, -122.0807),
 				map: map,
 				title: 'The Oddball Comedy & Curiosity Festival: Dave Chappelle & Flight Of The Conchords\nShoreline Amphitheatre\nSept 20, 2013'
+			});
+			
+			new google.maps.Marker({
+				position: new google.maps.LatLng(37.4510, -122.1211),
+				map: map,
+				title: 'KANYE WEST - THE YEEZUS TOUR WITH KENDRICK LAMAR \nOracle Arena\nOct 23, 2013'
 			});
 		}
 		
