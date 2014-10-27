@@ -1,289 +1,339 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta http-equiv="content-type" content="text/html/css; charset=UTF-8" />
-    <meta name="keywords" content="Tony Dong, Tony Dong's Resume, Tony, Dong, TonyDong, Tony's Resume, Resume, Computer Engineering, Engineer, Software,
-										Engineering, Computers, Computer Engineering, Developer, Programming, Honours Computer Engineering, Software Developer, Software Engineer,
-										Toronto, Waterloo, Canada, USA, San Francisco,
-										C#, Java, Scala, C++, C, SQL, R, Matlab, Verilog, Assembly (M68K/ColdFire), Ruby, JS,
-										HTML5, CSS, ASP.NET, PHP, XML, JSON,
-										MySQL, PostgreSQL, Titan, Cassandra, memcached, Microsoft SQL Server,
-										Distributed Computing, Language Design, Data Mining, Machine Learning,
-										Programmer Analyst, CI Investments Inc, Picton Mahoney Asset Management, Twitter, TonyDong3, @TonyDong3, TellApart" />
+	<head>
+		<meta http-equiv="content-type" content="text/html/css; charset=UTF-8" />
+		<title>Tony Dong</title>
+		<!-- Hi -->
+		<style type="text/css">
+			#container {
+				font-size: 9.5pt;
+				font-family: Century Gothic;
+				line-height: 12pt;
+				margin-left: auto;
+				margin-right: auto;
+			}
 
-    <title>Tony Dong</title>
-    <!-- Hi -->
-    <style type="text/css">
-        #container {
-            font-size: 9.5pt;
-            font-family: Century Gothic;
-            line-height: 12pt;
-            margin-left: auto;
-            margin-right: auto;
-        }
+			@media screen {
+				#container {
+					width: 680px;
+				}
+			}
 
-        @media screen {
-            #container {
-                width: 680px;
-            }
-        }
+			#header {
+				width: 100%;
+				text-align: center;
+			}
 
-        #header {
-            width: 100%;
-            text-align: center;
-        }
+			a:link, a:visited {
+				color: #00E;
+				text-decoration: underline;
+			}
 
-        a:link, a:visited {
-            color: #00E;
-            text-decoration: underline;
-        }
+			p {
+				margin: 0;
+			}
 
-        p {
-            margin: 0;
-        }
+			.clear {
+				clear: both;
+			}
 
-        .clear {
-            clear: both;
-        }
+			h1 {
+				font-family: Gabriola;
+				font-size: 45pt;
+				line-height: 0pt;
+				font-weight: bold;
+			}
 
-        h1 {
-            font-family: Gabriola;
-            font-size: 45pt;
-            line-height: 0pt;
-            font-weight: bold;
-        }
+			h2 {
+				font-family: Century Gothic;
+				font-size: 20pt;
+				line-height: 19pt;
+				margin-bottom: 0.2px;
+				margin-top: 0.1px;
+				font-weight: 300;
+				border-bottom: solid 2px #000;
+			}
 
-        h2 {
-            font-family: Century Gothic;
-            font-size: 20pt;
-            line-height: 19pt;
-            margin-bottom: 0.2px;
-            margin-top: 0.1px;
-            font-weight: 300;
-            border-bottom: solid 2px #000;
-        }
+			h3 {
+				font-family: Century Gothic;
+				font-size: 12pt;
+				line-height: 0pt;
+				margin-bottom: 0;
+				margin-top: 0;
+				font-weight: 400;
+			}
 
-        h3 {
-            font-family: Century Gothic;
-            font-size: 12pt;
-            line-height: 0pt;
-            margin-bottom: 0;
-            margin-top: 0;
-            font-weight: 400;
-        }
+			ul {
+				margin-top: 1px;
+				margin-bottom: 1px;
+			}
 
+			li {
+				margin-top: 1px;
+				line-height: 12pt;
+			}
 
-        ul {
-            margin-top: 1px;
-            margin-bottom: 1px;
-        }
+			#skills li {
+				margin-top: 0.5px;
+				list-style: none;
+				text-align: left;
+			}
 
-        li {
-            margin-top: 1px;
-            line-height: 12pt;
-        }
+			#skills ul {
+				list-style: none;
+				margin-left: 0;
+				padding-left: 1em;
+				text-indent: -1em;
+				margin-top: 0px;
+				margin-bottom: -2px;
+			}
 
-        #skills li {
-            margin-top: 0.5px;
-            list-style: none;
-            text-align: left;
-        }
+			.schooltitle {
+				text-align: left;
+				font-size: 11pt;
+				font-weight: 500;
+			}
+			.schoolsubtitle {
+				text-align: left;
+				font-size: 11pt;
+				font-weight: 500;
+			}
+			.jobdate {
+				float: right;
+				font-style: oblique;
+				font-size: 8.5pt;
+			}
 
-        #skills ul {
-            list-style: none;
-            margin-left: 0;
-            padding-left: 1em;
-            text-indent: -1em;
-            margin-top: 0px;
-            margin-bottom: -2px;
-        }
+			.joblocale {
+				float: right;
+				font-style: oblique;
+				font-size: 8.5pt;
+				font-weight: 900;
+			}
 
-        .schooltitle {
-            text-align: left;
-            font-size: 11pt;
-            font-weight: 500;
-        }
-        .schoolsubtitle {
-            text-align: left;
-            font-size: 11pt;
-            font-weight: 500;
-        }
-        .jobdate {
-            float: right;
-            font-style: oblique;
-            font-size: 8.5pt;
-        }
+			.jobtitle {
+				text-align: left;
+				font-size: 11pt;
+				font-weight: 500;
+			}
 
-        .joblocale {
-            float: right;
-            font-style: oblique;
-            font-size: 8.5pt;
-            font-weight: 900;
-        }
+			.jobcomp {
+				text-align: left;
+				font-size: 12pt;
+				font-weight: 900;
+				position: relative;
+				cursor: pointer;
+			}
 
-        .jobtitle {
-            text-align: left;
-            font-size: 11pt;
-            font-weight: 500;
-        }
+			.jobcomp_noreview {
+				text-align: left;
+				font-size: 12pt;
+				font-weight: 900;
+			}
 
-        .jobcomp {
-            text-align: left;
-            font-size: 12pt;
-            font-weight: 900;
-            position: relative;
-            cursor: pointer;
-        }
+			.jobsubtitle {
+				margin-top: 0.4em;
+				font-size: 10pt;
+				text-indent: 1px;
+			}
 
-        .jobcomp_noreview {
-            text-align: left;
-            font-size: 12pt;
-            font-weight: 900;
-        }
+			.jobcomp:hover:after {
+				content: attr(data-tooltip);
+				position: absolute;
+				background-color: #000000;
+				color: #FFFFFF;
+				border-radius: 10.5px;
+				width: 390px;
+				padding: 6px 6px 6px 6px;
+				white-space: pre-line;
+				font-size: 10pt;
+				opacity: 1;
+			}
+		</style>
 
-        .jobsubtitle {
-            margin-top: 0.4em;
-            font-size: 10pt;
-            text-indent: 1px;
-        }
+		<script type="text/javascript">
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-35036387-1']);
+			_gaq.push(['_setDomainName', 'tony-dong.com']);
+			_gaq.push(['_trackPageview']);
 
-        .jobcomp:hover:after {
-            content: attr(data-tooltip);
-            position: absolute;
-            background-color: #000000;
-            color: #FFFFFF;
-            border-radius: 10.5px;
-            width: 390px;
-            padding: 6px 6px 6px 6px;
-            white-space: pre-line;
-            font-size: 10pt;
-			opacity: 1;
-        }
-    </style>
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
 
-    <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-35036387-1']);
-        _gaq.push(['_setDomainName', 'tony-dong.com']);
-        _gaq.push(['_trackPageview']);
-
-        (function () {
-            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-
-    </script>
-</head>
-<body>
-    <div id="container">
-        <div id="header">
-            <br />
-            <h1>Tony Dong</h1>
-            <h3>tonydong91@gmail.com</h3>
-            <br />
-        </div>
-        <div id="content">
-            <div id="skills" class="skills">
-                <table border="0" width="100%" style="border-collapse: collapse; border-spacing: 0px;">
-                    <colgroup>
-                        <col width="50%" />
-                        <col width="50%" />
-                    </colgroup>
-                    <tr>
-                        <td class="sectiontitle" colspan="2" style="text-align: left; padding-top: 0px; padding-left: 0px; padding-bottom: 0px;">
-                            <h2>Skills Summary</h2>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <ul>
-                                <li><strong>Languages: </strong>Scala, Java, C#, C++, C, SQL, R, Matlab, Verilog, Assembly (M68K/ColdFire)</li>
-                                <li><strong>Datastores: </strong>MySQL, PostgreSQL, Titan, Cassandra, memcached, Voldemort, HBase</li>
-                                <li><strong>Interested In: </strong>Distributed Systems, Type Systems, Data Mining, Machine Learning</li>
-                            </ul>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div class="workexperience">
-                <h2>Work Experience</h2>
-				<div class="job">
-                    <span class="jobcomp_noreview">Tellapart <em class="joblocale">(Burlingame, CA)</em></span>
-                    <p class="jobtitle">Platform Engineer<em class="jobdate">July '14 - Now</em></p>
-                </div>
-                <div class="job">
-                    <span class="jobcomp" data-tooltip="&#34;Tony performed exceptionally during his internship. He took ownership of a major project for our team, and drove it to completion. His resourceful in getting the job done is something expected of a mid-level engineer, for an intern it is outstanding.
-						 - Andrew Seigner, Engineering Manager, Trust & Safety Engineering">Twitter <em class="joblocale">(San Francisco, CA)</em></span>
-                    <p class="jobtitle">Software Engineer, Trust and Safety Engineering <em class="jobdate">Sept - Dec '13</em></p>
-                    <ul>
-                        <li>Worked on a service to report illegal media content to the authorities</li>
-						<li>Built new tools and features for use by the Trust and Safety Team</li>
-                    </ul>
-                </div>
-                <div class="job">
-                    <span class="jobcomp_noreview">University of Waterloo <em class="joblocale">(Waterloo, ON)</em></span>
-                    <p class="jobtitle">Undergraduate Research Assistant (Kshirasagar Naik, Ph.D., P.Eng.)<em class="jobdate">May - Sept '13</em></p>
-                    <ul>
-                        <li>Implemented processes to determine resource usage of applications in Android devices</li>
-                    </ul>
-                </div>
-                <div class="job">
-                    <span class="jobcomp" data-tooltip="&#34;Tony has gone above and beyond what has been expected from him by taking on additional tasks. He's exhibited exceptional research and programming skills through a multifaceted suite of programs.&#34;
-                         - Zubair Hotelwala, Manager">CI Investments Inc. <em class="joblocale">(Toronto, ON)</em> </span>
-                    <p class="jobtitle">Programmer Analyst, Unitholder Systems <em class="jobdate">Sept - Dec '12</em></p>
-                    <ul>
-                        <li>Redesigned and re-implemented a system used for providing transaction settlement instructions, and settlement confirmations to FundSERV Inc.</li>
-                    </ul>
-                </div>
-                <div class="job">
-                    <span class="jobcomp" data-tooltip="&#34;Tony is an exceptional candidate and would be an asset to any firm. He has a way of understanding business requirements and users needs in a very competent manner.  In this way he stands out from his peers and some more senior developers.  This in my opinion is his strongest asset and will ensure he has a very successful career.&#34;
-                         - Rob Veling, Director of IT">Picton Mahoney Asset Management <em class="joblocale">(Toronto, ON)</em></span>
-                    <p class="jobtitle">Software Developer <em class="jobdate">May - Sept '11 & Jan - Apr '12</em></p>
-                    <ul>
-                        <li>Designed and implemented WPF, and ASP.NET applications for financial analysis using C#</li>
-                        <li>Automated performance reports with a robust application designed to facilitate future additions</li>
-                        <li>Worked on a Market On Close (MOC) price alert system to take advantage of bid-ask spreads</li>
-                        <li>Responsible for performance analysis, and optimization of existing applications</li>
-                    </ul>
-                </div>
-                <div class="job">
-                    <span class="jobcomp" data-tooltip="&#34;Tony is very reliable. He is quick to respond to requests, and also completes work in a very timely, efficient manner. He is also very bright and capable in many situations.&#34;
-                         - Lisa Tomalty, Computing Consultant/IST Liaison">University of Waterloo <em class="joblocale">(Waterloo, ON)</em></span>
-                    <p class="jobtitle">Computing Assistant, Arts Computing Office <em class="jobdate">Sept - Dec '10</em></p>
-                </div>
-                <div class="job">
-                    <span class="jobcomp" data-tooltip="&#34;Tony is by far the best student that has ever worked for me. I was so impressed by his work ethic, his innovative ideas and follow through and his professionalism. I trusted Tony with my business without a second thought. Tony is exceptional and anyone who hires him is incredibly fortunate.&#34;
-                        - Claire Sookman, Owner">Virtual Team Builders <em class="joblocale">(Toronto, ON)</em></span>
-                    <p class="jobtitle">Sales and Marketing Assistant <em class="jobdate">Jan - Apr '10</em></p>
-                </div>
-            </div>
-            <div class="projects">
-                <h2>Projects</h2>
-                <ul>
-                    <li>Creating a "Music Graph Search Service" - Please Visit <a href="http://tryrhino.com/" target="_blank" style="text-decoration: none; color: blue">www.TryRhino.com</a> </li>
-                    <li>Developing a secure distributed file system built on top of Dropbox</li>
-                    <li>Developed an algorithm to increase the number of Twitter followers - <a href="https://twitter.com/TonyDong3" target="_blank" style="text-decoration: none; color: blue">@TonyDong3</a></li>
-					<li><a href="https://twitter.com/TweetAGIF" target="_blank" style="text-decoration: none; color: blue">@TweetAGIF</a> - Hackathon Project that lets you Tweet GIFs at people</li>
-					<li>Created a cycle-accurate implementation of a MIPS processor using Verilog</li>
-                    <li>Designed an optimized WLAN simulator that implemented CSMA/CD as its MAC layer protocol</li>
-                    <li>Developed a Kirsch edge-detector circuit in VHDL</li>
-                    <li>Built a sound processing embedded C applications for a NIOS II processor on an Altera DE2 board</li>
-					<li>Check out <a href="https://github.com/tonyd3" target="_blank" style="text-decoration: none; color: blue">Github/tonyd3</a> for more projects</li>
-				</ul>
-            </div>
-            <div class="education">
-                <h2>Education</h2>
-                <div class="school">
-                    <span class="schooltitle"><strong>University of Waterloo</strong> </span>
-					<p class="schoolsubtitle">Bachelor of Applied Science, Honours Computer Engineering<em class="jobdate">Sept '09 - Apr '14</em></p>
-                    <ul>
-						<li>Achieved <b><em>Outstanding</em></b> reviews on 6/6 co-op positions</li>
-						<li>Graduated with <b><em>Distinction</em></b></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</body>
+		</script>
+	</head>
+	<body>
+		<div id="container">
+			<div id="header">
+				<br />
+				<h1>Tony Dong</h1>
+				<h3>tonydong91@gmail.com</h3>
+				<br />
+			</div>
+			<div id="content">
+				<div id="skills" class="skills">
+					<table border="0" width="100%" style="border-collapse: collapse; border-spacing: 0px;">
+						<colgroup>
+							<col width="50%" />
+							<col width="50%" />
+						</colgroup>
+						<tr>
+							<td class="sectiontitle" colspan="2" style="text-align: left; padding-top: 0px; padding-left: 0px; padding-bottom: 0px;"><h2>Skills Summary</h2></td>
+						</tr>
+						<tr>
+							<td colspan="2">
+							<ul>
+								<li>
+									<strong>Languages: </strong>Scala, Java, C#, C++, C, SQL, R, Matlab, Verilog, Assembly (M68K/ColdFire)
+								</li>
+								<li>
+									<strong>Datastores: </strong>MySQL, PostgreSQL, Titan, Cassandra, memcached, Voldemort, HBase
+								</li>
+								<li>
+									<strong>Interested In: </strong>Distributed Systems, Type Systems, Data Mining, Machine Learning
+								</li>
+							</ul></td>
+						</tr>
+					</table>
+				</div>
+				<div class="workexperience">
+					<h2>Work Experience</h2>
+					<div class="job">
+						<span class="jobcomp_noreview">Tellapart <em class="joblocale">(Burlingame, CA)</em></span>
+						<p class="jobtitle">
+							Platform Engineer<em class="jobdate">July '14 - Now</em>
+						</p>
+					</div>
+					<div class="job">
+						<span class="jobcomp" data-tooltip="&#34;Tony performed exceptionally during his internship. He took ownership of a major project for our team, and drove it to completion. His resourceful in getting the job done is something expected of a mid-level engineer, for an intern it is outstanding.
+						- Andrew Seigner, Engineering Manager, Trust & Safety Engineering">Twitter <em class="joblocale">(San Francisco, CA)</em></span>
+						<p class="jobtitle">
+							Software Engineer, Trust and Safety Engineering <em class="jobdate">Sept - Dec '13</em>
+						</p>
+						<ul>
+							<li>
+								Worked on a service to report illegal media content to the authorities
+							</li>
+							<li>
+								Built new tools and features for use by the Trust and Safety Team
+							</li>
+						</ul>
+					</div>
+					<div class="job">
+						<span class="jobcomp_noreview">University of Waterloo <em class="joblocale">(Waterloo, ON)</em></span>
+						<p class="jobtitle">
+							Undergraduate Research Assistant (Kshirasagar Naik, Ph.D., P.Eng.)<em class="jobdate">May - Sept '13</em>
+						</p>
+						<ul>
+							<li>
+								Implemented processes to determine resource usage of applications in Android devices
+							</li>
+						</ul>
+					</div>
+					<div class="job">
+						<span class="jobcomp" data-tooltip="&#34;Tony has gone above and beyond what has been expected from him by taking on additional tasks. He's exhibited exceptional research and programming skills through a multifaceted suite of programs.&#34;
+						- Zubair Hotelwala, Manager">CI Investments Inc. <em class="joblocale">(Toronto, ON)</em> </span>
+						<p class="jobtitle">
+							Programmer Analyst, Unitholder Systems <em class="jobdate">Sept - Dec '12</em>
+						</p>
+						<ul>
+							<li>
+								Redesigned and re-implemented a system used for providing transaction settlement instructions, and settlement confirmations to FundSERV Inc.
+							</li>
+						</ul>
+					</div>
+					<div class="job">
+						<span class="jobcomp" data-tooltip="&#34;Tony is an exceptional candidate and would be an asset to any firm. He has a way of understanding business requirements and users needs in a very competent manner.  In this way he stands out from his peers and some more senior developers.  This in my opinion is his strongest asset and will ensure he has a very successful career.&#34;
+						- Rob Veling, Director of IT">Picton Mahoney Asset Management <em class="joblocale">(Toronto, ON)</em></span>
+						<p class="jobtitle">
+							Software Developer <em class="jobdate">May - Sept '11 & Jan - Apr '12</em>
+						</p>
+						<ul>
+							<li>
+								Designed and implemented WPF, and ASP.NET applications for financial analysis using C#
+							</li>
+							<li>
+								Automated performance reports with a robust application designed to facilitate future additions
+							</li>
+							<li>
+								Worked on a Market On Close (MOC) price alert system to take advantage of bid-ask spreads
+							</li>
+							<li>
+								Responsible for performance analysis, and optimization of existing applications
+							</li>
+						</ul>
+					</div>
+					<div class="job">
+						<span class="jobcomp" data-tooltip="&#34;Tony is very reliable. He is quick to respond to requests, and also completes work in a very timely, efficient manner. He is also very bright and capable in many situations.&#34;
+						- Lisa Tomalty, Computing Consultant/IST Liaison">University of Waterloo <em class="joblocale">(Waterloo, ON)</em></span>
+						<p class="jobtitle">
+							Computing Assistant, Arts Computing Office <em class="jobdate">Sept - Dec '10</em>
+						</p>
+					</div>
+					<div class="job">
+						<span class="jobcomp" data-tooltip="&#34;Tony is by far the best student that has ever worked for me. I was so impressed by his work ethic, his innovative ideas and follow through and his professionalism. I trusted Tony with my business without a second thought. Tony is exceptional and anyone who hires him is incredibly fortunate.&#34;
+						- Claire Sookman, Owner">Virtual Team Builders <em class="joblocale">(Toronto, ON)</em></span>
+						<p class="jobtitle">
+							Sales and Marketing Assistant <em class="jobdate">Jan - Apr '10</em>
+						</p>
+					</div>
+				</div>
+				<div class="projects">
+					<h2>Projects</h2>
+					<ul>
+						<li>
+							Creating a "Music Graph Search Service" - Please Visit <a href="http://tryrhino.com/" target="_blank" style="text-decoration: none; color: blue">www.TryRhino.com</a>
+						</li>
+						<li>
+							Developing a secure distributed file system built on top of Dropbox
+						</li>
+						<li>
+							Developed an algorithm to increase the number of Twitter followers - <a href="https://twitter.com/TonyDong3" target="_blank" style="text-decoration: none; color: blue">@TonyDong3</a>
+						</li>
+						<li>
+							<a href="https://twitter.com/TweetAGIF" target="_blank" style="text-decoration: none; color: blue">@TweetAGIF</a> - Hackathon Project that lets you Tweet GIFs at people
+						</li>
+						<li>
+							Created a cycle-accurate implementation of a MIPS processor using Verilog
+						</li>
+						<li>
+							Designed an optimized WLAN simulator that implemented CSMA/CD as its MAC layer protocol
+						</li>
+						<li>
+							Developed a Kirsch edge-detector circuit in VHDL
+						</li>
+						<li>
+							Built a sound processing embedded C applications for a NIOS II processor on an Altera DE2 board
+						</li>
+						<li>
+							Check out <a href="https://github.com/tonyd3" target="_blank" style="text-decoration: none; color: blue">Github/tonyd3</a> for more projects
+						</li>
+					</ul>
+				</div>
+				<div class="education">
+					<h2>Education</h2>
+					<div class="school">
+						<span class="schooltitle"><strong>University of Waterloo</strong> </span>
+						<p class="schoolsubtitle">
+							Bachelor of Applied Science, Honours Computer Engineering<em class="jobdate">Sept '09 - Apr '14</em>
+						</p>
+						<ul>
+							<li>
+								Achieved <b><em>Outstanding</em></b> reviews on 6/6 co-op positions
+							</li>
+							<li>
+								Graduated with <b><em>Distinction</em></b>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
 </html>
