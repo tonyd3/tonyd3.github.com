@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="Tony Dong">
+		<meta property="twitter:account_id" content="1560484823" />
+		<meta name="keywords" content="Cassandra" />
+		<title>Notes on Cassandra</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="./dist/css/bootstrap.css" rel="stylesheet">
+		<link href="./dist/css/carousel.css" rel="stylesheet">
+		<link href="./assets/css/pygments-manni.css" rel="stylesheet">
+
+		<script>
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-38085017-1']);
+			_gaq.push(['_setDomainName', 'tony-dong.com']);
+			_gaq.push(['_setAllowLinker', true]);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+
+	</head>
+	<!-- NAVBAR
+	================================================== -->
+	<body>
+		<div class="navbar-wrapper">
+			<div class="container">
+				<div class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="./index.html">Tony Dong</a>
+						</div>
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
+								<li>
+									<a href="./index.html#about">About</a>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-hover" data-toggle="dropdown">Projects</a>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="./index.html#rhino">Project Rhino</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="./index.html#writings">Writings</a>
+								</li>
+								<li>
+									<a href="./resume.html">Resume</a>
+								</li>
+								<li>
+									<a href="./resume.pdf">Resume PDF</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div id="rhino">
+				<hr class="divider">
+				<div class="row featurette">
+					<h1>Notes on Cassandra</h1>
+					<p>
+						These are some notes I made while I was reading the paper <a href="https://www.cs.cornell.edu/projects/ladis2009/papers/lakshman-ladis2009.pdf">Cassandra - A Decentralized Structured Storage System</a>
+						
+						Introduction:
+						<ul>
+							<li>3. Data Model</li>
+							<li>5. System Architecture</li>
+							<li>5.1 Partitioning</li>
+							<li>5.2 Replication</li>
+							<li>5.3 Membership</li>
+							<li>5.4 Bootstrapping</li>
+							<li>5.5 Scaling the Cluster</li>
+							<li>5.6 Local Persistence</li>
+							<li>5.7 Implementation Details</li>
+						</ul>
+					</p>
+				</div>
+			</div>
+
+			<footer class="container" role="footer">
+				<div class="bs-social">
+					<ul class="bs-social-buttons">
+						<li class="tweet-btn">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tony-dong.com/cassandra.html" data-count="horizontal">Tweet</a>
+						</li>
+					</ul>
+				</div>
+			</footer>
+
+			<!-- ================================================== -->
+
+			<script src="./assets/js/jquery.js"></script>
+			<script src="./dist/js/bootstrap.min.js"></script>
+			<script src="./assets/js/holder.js"></script>
+			<script src="http://platform.twitter.com/widgets.js"></script>
+	</body>
+</html>

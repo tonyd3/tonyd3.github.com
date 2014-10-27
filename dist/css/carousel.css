@@ -8,17 +8,6 @@ body {
 }
 
 
-
-/* CUSTOMIZE THE NAVBAR
--------------------------------------------------- */
-
-/* Special class on .container surrounding .navbar, used for positioning it into place. */
-.navbar-wrapper {
-  position: relative;
-  z-index: 15;
-}
-
-
 /* CUSTOMIZE THE CAROUSEL
 -------------------------------------------------- */
 
@@ -32,6 +21,11 @@ body {
 /* Since positioning the image, we need to help out the caption */
 .carousel-caption {
   z-index: 10;
+}
+
+.carousel-caption title {
+  margin-top: -290px;
+  top: -1000px
 }
 
 /* Declare heights because of positioning of img element */
