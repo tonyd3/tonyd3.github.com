@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="Tony Dong">
+		<title>Reading of MillWheel</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="./dist/css/bootstrap.css" rel="stylesheet">
+		<link href="./dist/css/carousel.css" rel="stylesheet">
+		<link href="./assets/css/pygments-manni.css" rel="stylesheet">
+
+		<script>
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-38085017-1']);
+			_gaq.push(['_setDomainName', 'tony-dong.com']);
+			_gaq.push(['_setAllowLinker', true]);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+
+	</head>
+	<!-- NAVBAR
+	================================================== -->
+	<body>
+		<div class="navbar-wrapper">
+			<div class="container">
+				<div class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="./index.html">Tony Dong</a>
+						</div>
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
+								<li>
+									<a href="./index.html#about">About</a>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-hover" data-toggle="dropdown">Projects</a>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="./index.html#rhino">Project Rhino</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="./index.html#writings">Writings</a>
+								</li>
+								<li>
+									<a href="./resume.html">Resume</a>
+								</li>
+								<li>
+									<a href="./resume.pdf">Resume PDF</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div id="rhino">
+				<hr class="divider">
+				<div class="row featurette">
+					<h1>Reading of MillWheel</h1>
+					<p>
+						These are some notes I made while I was reading the paper <a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41378.pdf">MillWheel: Fault-Tolerant Stream Processing at
+						Internet Scale</a>
+
+						<ul>
+							<li>
+								1. Introduction
+							</li>
+							<ul>
+								<li>
+									The idea is to think of your computation process as a directed compute graph.
+								</li>
+								<li>
+									Record delivery uses at least once sementics, idempotent record processing means that the user will see exactly once sementics.
+								</li>
+								<li>
+									Focusing on fault tolerance, versability, and scalability.
+								</li>
+								<li>
+									<a href="https://spark.apache.org/">Spark</a> and Sonora do not have enough operators. Spark SQL makes the sementics of calculations too strict.
+								</li>
+								<li>
+									<a href="http://incubator.apache.org/s4/">S4</a> isn't as fault tolerant, which I think is not as true for newer releases.
+								</li>
+								<li>
+									<a href="http://storm.incubator.apache.org/">Storm</a>'s Trident isn't as versatile because it requires strict transactional ordering.
+								</li>
+							</ul>
+							<li>
+								2. Motivations and Requirements
+							</li>
+							<ul>
+								<li>
+									For use with Zeitgeist, which provides "Hot Trends".
+								</li>
+								<li>
+									One second buckets, compare with models and a trend is when a non-trivial number of time buckets indicate the same anomaly.
+								</li>
+								<li>
+									Uses a low watermark (implemented with counters) to indicate that all messages up to a given timestamp has been delivered for a particular stage. This allows differentiation between missing data and non-existent data.
+								</li>
+								<li>
+									Exactly-once processing is required, so MillWheel de-duplicates records for you.
+								</li>
+								<li>
+									One requirement is to publish data to consumer as soon as possible, does no batching mean a performance hit?
+								</li>
+							</ul>
+
+							<li>
+								3. System Overview
+							</li>
+							<ul>
+								<li>
+									(key, value, timestamp) triples
+								</li>
+								<li>
+									Can add and remove computations from a topology without restarting? Is it similar to a migration using a feature flag?
+								</li>
+							</ul>
+							<li>
+								4. Core Concepts
+							</li>
+							<ul>
+								<li>
+									Consumer defines a key extraction function for each record.
+								</li>
+								<li>
+									Computation has 0 or more input streams and 1 or more output streams.
+								</li>
+								<li>
+									Streams are defined only by name.
+								</li>
+								<li>
+									Persistent state can be preserved for things like counters and joins.
+								</li>
+								<li>
+									Low watermark of A = min(oldest A, low watermark of C : C outputs to A)
+								</li>
+								<li>
+									Late arriving data is simply dropped. Low threshold is fine, but does the system self adjust when the amount of late arriving data starts climbing?
+								</li>
+							</ul>
+							<li>
+								5. API
+							</li>
+							<ul>
+								<li>
+									ProcessRecord, ProcessTimer, SetTimer, ProduceRecord, MutablePersistentState
+								</li>
+								<li>
+									Use injectors to bring external data into system. i.e. injestion of log files.
+								</li>
+							</ul>
+							<li>
+								6. Fault Tolerance
+							</li>
+							<ul>
+								<li>
+									"Hinges upon its ability to take non-idempotent user code and run it as it were idempotent."
+								</li>
+								<li>
+									Exactly-once delivery: Retry messages until Acked (at least once), and then deduplicate. Is <a href="https://github.com/jmhodges/opposite_of_a_bloom_filter">opposite of a bloom filter</a> maybe a better solution? The tradeoff is that you'll miss more records, but it should be faster than checking false positives.
+								</li>
+																<li>Can disable deduplication if the user's opertaions are idempotent already.</li>
+								<li>
+									Strong Production = constant check pointing into persistent storage.
+								</li>
+								<li>
+									Weak Production = broadcast delieveries optimistically downstream, before persisting.
+								</li>
+							</ul>
+							<li>
+								7. System Implementations
+							</li>
+							<ul></ul>
+							<li>
+								8. Evaluation
+							</li>
+							<ul></ul>
+						</ul>
+					</p>
+
+					<h3>Idea Highlights</h3>
+					<ul>
+						<li>
+							There is strong backpressure (API limiting) on the system to ensure guarantees are met.
+						</li>
+						<li>
+							Exactly once delivery of a record is non-trivial. If Millwheel can guarantee it, then it means processing become a lot easier.
+						</li>
+					</ul>
+
+				</div>
+			</div>
+
+			<footer class="container" role="footer">
+				<div class="bs-social">
+					<ul class="bs-social-buttons">
+						<li class="tweet-btn">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tony-dong.com/cassandra.html" data-count="horizontal">Tweet</a>
+						</li>
+					</ul>
+				</div>
+			</footer>
+
+			<!-- ================================================== -->
+
+			<script src="./assets/js/jquery.js"></script>
+			<script src="./dist/js/bootstrap.min.js"></script>
+			<script src="./assets/js/holder.js"></script>
+			<script src="http://platform.twitter.com/widgets.js"></script>
+	</body>
+</html>
