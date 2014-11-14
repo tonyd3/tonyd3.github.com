@@ -153,7 +153,6 @@
 						</ul>
 						<li>
 							4. Core Concepts
-<<<<<<< HEAD
 						</li>
 						<ul>
 							<li>
@@ -213,67 +212,6 @@
 							</li>
 						</ul>
 						<li>
-=======
-						</li>
-						<ul>
-							<li>
-								Consumer defines a key extraction function for each record.
-							</li>
-							<li>
-								Computation has 0 or more input streams and 1 or more output streams.
-							</li>
-							<li>
-								Streams are defined only by name.
-							</li>
-							<li>
-								Persistent state can be preserved for things like counters and joins.
-							</li>
-							<li>
-								Low watermark of A = min(oldest A, low watermark of C : C outputs to A)
-							</li>
-							<li>
-								Late arriving data is simply dropped. Low threshold is fine, but does the system self adjust when the amount of late arriving data starts climbing?
-							</li>
-						</ul>
-						<li>
-							5. API
-						</li>
-						<ul>
-							<li>
-								ProcessRecord, ProcessTimer, SetTimer, ProduceRecord, MutablePersistentState
-							</li>
-							<li>
-								Use injectors to bring external data into system. i.e. ingestion of log files.
-							</li>
-						</ul>
-						<li>
-							6. Fault Tolerance
-						</li>
-						<ul>
-							<li>
-								"Hinges upon its ability to take non-idempotent user code and run it as it were idempotent."
-							</li>
-							<li>
-								Exactly-once delivery: Retry messages until Acked (at least once), and then deduplicate. Is <a href="https://github.com/jmhodges/opposite_of_a_bloom_filter">opposite of a bloom filter</a> maybe a better solution? The tradeoff is that you'll miss more records, but it should be faster than checking false positives.
-							</li>
-							<li>
-								Can disable deduplication if the user's operations are idempotent already.
-							</li>
-							<li>
-								Strong Production = check pointing into persistent storage before delivery.
-							</li>
-							<li>
-								Weak Production = broadcast deliveries optimistically downstream, before persisting. Failures are protected by replays.
-							</li>
-							<li>
-								Sequencer token to each write to avoid zombie writers persisting stale information.
-							</li>
-							<li>
-								Dedupe record -> compute -> commit/persist -> ACK -> downstream
-							</li>
-						</ul>
-						<li>
->>>>>>> 57411111b0ac023aa38617eb512b9d02e8e1a6c0
 							7. System Implementations
 						</li>
 						<ul>
