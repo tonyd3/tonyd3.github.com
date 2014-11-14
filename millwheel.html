@@ -85,13 +85,13 @@
 									The idea is to think of your computation process as a directed compute graph.
 								</li>
 								<li>
-									Record delivery uses at least once sementics, idempotent record processing means that the user will see exactly once sementics.
+									Record delivery uses at least once semantics, idempotent record processing means that the user will see exactly once semantics.
 								</li>
 								<li>
-									Focusing on fault tolerance, versability, and scalability.
+									Focusing on fault tolerance, versatility, and scalability.
 								</li>
 								<li>
-									<a href="https://spark.apache.org/">Spark</a> and Sonora do not have enough operators. Spark SQL makes the sementics of calculations too strict.
+									<a href="https://spark.apache.org/">Spark</a> and Sonora do not have enough operators. Spark SQL makes the semantics of calculations too strict.
 								</li>
 								<li>
 									<a href="http://incubator.apache.org/s4/">S4</a> isn't as fault tolerant, which I think is not as true for newer releases.
@@ -163,7 +163,7 @@
 									ProcessRecord, ProcessTimer, SetTimer, ProduceRecord, MutablePersistentState
 								</li>
 								<li>
-									Use injectors to bring external data into system. i.e. injestion of log files.
+									Use injectors to bring external data into system. i.e. ingestion of log files.
 								</li>
 							</ul>
 							<li>
@@ -176,22 +176,44 @@
 								<li>
 									Exactly-once delivery: Retry messages until Acked (at least once), and then deduplicate. Is <a href="https://github.com/jmhodges/opposite_of_a_bloom_filter">opposite of a bloom filter</a> maybe a better solution? The tradeoff is that you'll miss more records, but it should be faster than checking false positives.
 								</li>
-																<li>Can disable deduplication if the user's opertaions are idempotent already.</li>
 								<li>
-									Strong Production = constant check pointing into persistent storage.
+									Can disable deduplication if the user's operations are idempotent already.
 								</li>
 								<li>
-									Weak Production = broadcast delieveries optimistically downstream, before persisting.
+									Strong Production = check pointing into persistent storage before delivery.
+								</li>
+								<li>
+									Weak Production = broadcast deliveries optimistically downstream, before persisting. Failures are protected by replays.
+								</li>
+								<li>
+									Sequencer token to each write to avoid zombie writers persisting stale information.
+								</li>
+								<li>
+									Dedupe record -> compute -> commit/persist -> ACK -> downstream
 								</li>
 							</ul>
 							<li>
 								7. System Implementations
 							</li>
-							<ul></ul>
+							<ul>
+								<li>
+									Streams delivered via RPC (Protocol Buffers?).
+								</li>
+								<li>
+									Sounds like it's running on top of Borg. Is it as an isolated resource?
+								</li>
+								<li>
+									Central authority to keep track of all low watermarks. Consumers then subscribe to interested low watermarks.
+								</li>
+							</ul>
 							<li>
 								8. Evaluation
 							</li>
-							<ul></ul>
+							<ul>
+								<li>
+									There was framework-level caching because the use case is different from common use cases. i.e. LRU is not great for this situation.
+								</li>
+							</ul>
 						</ul>
 					</p>
 
@@ -202,6 +224,15 @@
 						</li>
 						<li>
 							Exactly once delivery of a record is non-trivial. If Millwheel can guarantee it, then it means processing become a lot easier.
+						</li>
+						<li>
+							"Hinges upon its ability to take non-idempotent user code and run it as it were idempotent." Although, if the user write idempotent code, then we can relax the restrictions and the system will perform significantly faster.
+						</li>
+						<li>
+							Dynamically add and remove computations from the topology.
+						</li>
+						<li>
+							Persistent state, to hide things like failures and changing machines.
 						</li>
 					</ul>
 
