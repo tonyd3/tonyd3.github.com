@@ -75,148 +75,7 @@
 					<p>
 						These are some notes I made while I was reading the paper <a href="https://static.googleusercontent.com/media/research.google.com/en//pubs/archive/41378.pdf">MillWheel: Fault-Tolerant Stream Processing at
 						Internet Scale</a>
-
-						<ul>
-							<li>
-								1. Introduction
-							</li>
-							<ul>
-								<li>
-									The idea is to think of your computation process as a directed compute graph.
-								</li>
-								<li>
-									Record delivery uses at least once semantics, idempotent record processing means that the user will see exactly once semantics.
-								</li>
-								<li>
-									Focusing on fault tolerance, versatility, and scalability.
-								</li>
-								<li>
-									<a href="https://spark.apache.org/">Spark</a> and Sonora do not have enough operators. Spark SQL makes the semantics of calculations too strict.
-								</li>
-								<li>
-									<a href="http://incubator.apache.org/s4/">S4</a> isn't as fault tolerant, which I think is not as true for newer releases.
-								</li>
-								<li>
-									<a href="http://storm.incubator.apache.org/">Storm</a>'s Trident isn't as versatile because it requires strict transactional ordering.
-								</li>
-							</ul>
-							<li>
-								2. Motivations and Requirements
-							</li>
-							<ul>
-								<li>
-									For use with Zeitgeist, which provides "Hot Trends".
-								</li>
-								<li>
-									One second buckets, compare with models and a trend is when a non-trivial number of time buckets indicate the same anomaly.
-								</li>
-								<li>
-									Uses a low watermark (implemented with counters) to indicate that all messages up to a given timestamp has been delivered for a particular stage. This allows differentiation between missing data and non-existent data.
-								</li>
-								<li>
-									Exactly-once processing is required, so MillWheel de-duplicates records for you.
-								</li>
-								<li>
-									One requirement is to publish data to consumer as soon as possible, does no batching mean a performance hit?
-								</li>
-							</ul>
-
-							<li>
-								3. System Overview
-							</li>
-							<ul>
-								<li>
-									(key, value, timestamp) triples
-								</li>
-								<li>
-									Can add and remove computations from a topology without restarting? Is it similar to a migration using a feature flag?
-								</li>
-							</ul>
-							<li>
-								4. Core Concepts
-							</li>
-							<ul>
-								<li>
-									Consumer defines a key extraction function for each record.
-								</li>
-								<li>
-									Computation has 0 or more input streams and 1 or more output streams.
-								</li>
-								<li>
-									Streams are defined only by name.
-								</li>
-								<li>
-									Persistent state can be preserved for things like counters and joins.
-								</li>
-								<li>
-									Low watermark of A = min(oldest A, low watermark of C : C outputs to A)
-								</li>
-								<li>
-									Late arriving data is simply dropped. Low threshold is fine, but does the system self adjust when the amount of late arriving data starts climbing?
-								</li>
-							</ul>
-							<li>
-								5. API
-							</li>
-							<ul>
-								<li>
-									ProcessRecord, ProcessTimer, SetTimer, ProduceRecord, MutablePersistentState
-								</li>
-								<li>
-									Use injectors to bring external data into system. i.e. ingestion of log files.
-								</li>
-							</ul>
-							<li>
-								6. Fault Tolerance
-							</li>
-							<ul>
-								<li>
-									"Hinges upon its ability to take non-idempotent user code and run it as it were idempotent."
-								</li>
-								<li>
-									Exactly-once delivery: Retry messages until Acked (at least once), and then deduplicate. Is <a href="https://github.com/jmhodges/opposite_of_a_bloom_filter">opposite of a bloom filter</a> maybe a better solution? The tradeoff is that you'll miss more records, but it should be faster than checking false positives.
-								</li>
-								<li>
-									Can disable deduplication if the user's operations are idempotent already.
-								</li>
-								<li>
-									Strong Production = check pointing into persistent storage before delivery.
-								</li>
-								<li>
-									Weak Production = broadcast deliveries optimistically downstream, before persisting. Failures are protected by replays.
-								</li>
-								<li>
-									Sequencer token to each write to avoid zombie writers persisting stale information.
-								</li>
-								<li>
-									Dedupe record -> compute -> commit/persist -> ACK -> downstream
-								</li>
-							</ul>
-							<li>
-								7. System Implementations
-							</li>
-							<ul>
-								<li>
-									Streams delivered via RPC (Protocol Buffers?).
-								</li>
-								<li>
-									Sounds like it's running on top of Borg. Is it as an isolated resource?
-								</li>
-								<li>
-									Central authority to keep track of all low watermarks. Consumers then subscribe to interested low watermarks.
-								</li>
-							</ul>
-							<li>
-								8. Evaluation
-							</li>
-							<ul>
-								<li>
-									There was framework-level caching because the use case is different from common use cases. i.e. LRU is not great for this situation.
-								</li>
-							</ul>
-						</ul>
 					</p>
-
 					<h3>Idea Highlights</h3>
 					<ul>
 						<li>
@@ -234,6 +93,146 @@
 						<li>
 							Persistent state, to hide things like failures and changing machines.
 						</li>
+					</ul>
+					<h3>Notes</h3>
+					<ul>
+						<li>
+							1. Introduction
+						</li>
+						<ul>
+							<li>
+								The idea is to think of your computation process as a directed compute graph.
+							</li>
+							<li>
+								Record delivery uses at least once semantics, idempotent record processing means that the user will see exactly once semantics.
+							</li>
+							<li>
+								Focusing on fault tolerance, versatility, and scalability.
+							</li>
+							<li>
+								<a href="https://spark.apache.org/">Spark</a> and Sonora do not have enough operators. Spark SQL makes the semantics of calculations too strict.
+							</li>
+							<li>
+								<a href="http://incubator.apache.org/s4/">S4</a> isn't as fault tolerant, which I think is not as true for newer releases.
+							</li>
+							<li>
+								<a href="http://storm.incubator.apache.org/">Storm</a>'s Trident isn't as versatile because it requires strict transactional ordering.
+							</li>
+						</ul>
+						<li>
+							2. Motivations and Requirements
+						</li>
+						<ul>
+							<li>
+								For use with Zeitgeist, which provides "Hot Trends".
+							</li>
+							<li>
+								One second buckets, compare with models and a trend is when a non-trivial number of time buckets indicate the same anomaly.
+							</li>
+							<li>
+								Uses a low watermark (implemented with counters) to indicate that all messages up to a given timestamp has been delivered for a particular stage. This allows differentiation between missing data and non-existent data.
+							</li>
+							<li>
+								Exactly-once processing is required, so MillWheel de-duplicates records for you.
+							</li>
+							<li>
+								One requirement is to publish data to consumer as soon as possible, does no batching mean a performance hit?
+							</li>
+						</ul>
+
+						<li>
+							3. System Overview
+						</li>
+						<ul>
+							<li>
+								(key, value, timestamp) triples
+							</li>
+							<li>
+								Can add and remove computations from a topology without restarting? Is it similar to a migration using a feature flag?
+							</li>
+						</ul>
+						<li>
+							4. Core Concepts
+						</li>
+						<ul>
+							<li>
+								Consumer defines a key extraction function for each record.
+							</li>
+							<li>
+								Computation has 0 or more input streams and 1 or more output streams.
+							</li>
+							<li>
+								Streams are defined only by name.
+							</li>
+							<li>
+								Persistent state can be preserved for things like counters and joins.
+							</li>
+							<li>
+								Low watermark of A = min(oldest A, low watermark of C : C outputs to A)
+							</li>
+							<li>
+								Late arriving data is simply dropped. Low threshold is fine, but does the system self adjust when the amount of late arriving data starts climbing?
+							</li>
+						</ul>
+						<li>
+							5. API
+						</li>
+						<ul>
+							<li>
+								ProcessRecord, ProcessTimer, SetTimer, ProduceRecord, MutablePersistentState
+							</li>
+							<li>
+								Use injectors to bring external data into system. i.e. ingestion of log files.
+							</li>
+						</ul>
+						<li>
+							6. Fault Tolerance
+						</li>
+						<ul>
+							<li>
+								"Hinges upon its ability to take non-idempotent user code and run it as it were idempotent."
+							</li>
+							<li>
+								Exactly-once delivery: Retry messages until Acked (at least once), and then deduplicate. Is <a href="https://github.com/jmhodges/opposite_of_a_bloom_filter">opposite of a bloom filter</a> maybe a better solution? The tradeoff is that you'll miss more records, but it should be faster than checking false positives.
+							</li>
+							<li>
+								Can disable deduplication if the user's operations are idempotent already.
+							</li>
+							<li>
+								Strong Production = check pointing into persistent storage before delivery.
+							</li>
+							<li>
+								Weak Production = broadcast deliveries optimistically downstream, before persisting. Failures are protected by replays.
+							</li>
+							<li>
+								Sequencer token to each write to avoid zombie writers persisting stale information.
+							</li>
+							<li>
+								Dedupe record -> compute -> commit/persist -> ACK -> downstream
+							</li>
+						</ul>
+						<li>
+							7. System Implementations
+						</li>
+						<ul>
+							<li>
+								Streams delivered via RPC (Protocol Buffers?).
+							</li>
+							<li>
+								Sounds like it's running on top of Borg. Is it as an isolated resource?
+							</li>
+							<li>
+								Central authority to keep track of all low watermarks. Consumers then subscribe to interested low watermarks.
+							</li>
+						</ul>
+						<li>
+							8. Evaluation
+						</li>
+						<ul>
+							<li>
+								There was framework-level caching because the use case is different from common use cases. i.e. LRU is not great for this situation.
+							</li>
+						</ul>
 					</ul>
 
 				</div>
