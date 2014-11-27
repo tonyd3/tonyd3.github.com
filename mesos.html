@@ -78,10 +78,27 @@
 					<h3>Idea Highlights</h3>
 					<ul>
 						<li>
+							Mesos focuses on fault tolerance and scalability.
+						</li>
+						<li>
 							Minimize what Mesos is responsible for, so it can be good at what it does.
 						</li>
 						<li>
 							Data locality means havings easy migration of frameworks without data duplication.
+						</li>
+						<li>
+							Heterogenous tasks (mix of long and short) lead to fragmentation and less than perfect utilization.
+							This gives us incentive to make micro-services, so please don't make monolithic apps...
+						</li>
+						<li>
+							Decentralized scheduling model assumes all frameworks play nice with each other. Mesos incentivizes them to do so, but it's hard to enforce it.
+						</li>
+						<li>
+							Comparable Systems: Google's <a href="http://www.wired.com/2013/03/google-borg-twitter-mesos/all/">Borg</a>/<a href="http://static.googleusercontent.com/media/research.google.com/en/us/pubs/archive/41684.pdf">Omega</a>/<a href="https://github.com/GoogleCloudPlatform/kubernetes/blob/master/DESIGN.md">Kubernetes</a> 
+							and Microsoft's <a href="http://research.microsoft.com/pubs/64604/osr2007.pdf">Autopilot</a>
+						</li>
+						<li>
+							List of Frameworks: <a href="http://mesos.apache.org/documentation/latest/mesos-frameworks/">http://mesos.apache.org/documentation/latest/mesos-frameworks/</a>
 						</li>
 					</ul>
 					<h3>Notes</h3>
@@ -127,7 +144,7 @@
 								Framework = Scheduler + executor
 							</li>
 							<li>
-								Frameworks indicate interest in offers, the master offers resources to frameworks, then it replies with task description. 
+								Frameworks indicate interest in offers, the master offers resources to frameworks, then it replies with task description.
 							</li>
 							<li>
 								Rejection of resources(using filters) allows the frameworks to implement a more complicated resource constraint model.
@@ -137,30 +154,84 @@
 								Mesos may kill tasks/revoke resources of long running tasks, so it seems like it's originally designed for short running tasks.
 							</li>
 							<li>
-								Guaranteed allocations given to frameworks to keep long running tasks. 
+								Guaranteed allocations given to frameworks to keep long running tasks.
 							</li>
 							<li>
-								Support pluggable isolation modules, which seems like docker integration should be pretty reasonable to implement. 
+								Support pluggable isolation modules, which seems like docker integration should be pretty reasonable to implement.
+							</li>
+							<li>
+								Master only holds list of active slaves, active frameworks, and running tasks. Everything else can be reconstructed.
+								Multiple masters run in hot-standby, waiting for leader election.
 							</li>
 						</ul>
 						<li>
 							4. Mesos Behavior
 						</li>
-						<ul></ul>
-						<li>
-							5. Implementation
-						</li>
-						<ul></ul>
+						<ul>
+							<li>
+								Best when frameworks scales up and down elastically and task durations are homogenous. i.e. Hadoop
+							</li>
+							<li>
+								Has the concept of mandatory vs. preferred resources.
+							</li>
+							<li>
+								System utilization is worse when rigid frameworks do not allow jobs to start before full allocation is granted.
+							</li>
+							<li>
+								Lottery scheduling is sufficient in presenting different preferred allocations to different frameworks. Each framework will average receive its required # of slots every interval.
+							</li>
+							<li>
+								Frameworks are incentivized to use short tasks: easy to schedule, minimizes risk of wasted work on restarts.
+							</li>
+							<li>
+								Frameworks should only accept resources they can use.
+							</li>
+							<li>
+								Heterogenous tasks lead to fragmentation. We can solve this by breaking up services/jobs to smaller granularity.
+							</li>
+							<li>
+								Minimum offer size on slaves, so large tasks do not starve.
+							</li>
+						</ul>
 						<li>
 							6. Evaluation
 						</li>
 						<ul>
-
+							<li>
+								Elastic frameworks have very noisy/dynamic scheduling, while rigid frameworks are very static and similar to using static partitioning.
+							</li>
+							<li>
+								CPU utilization was slightly better than on Mesos, memory utilization was significantly better.
+								Probably because memory is more granular than CPU. It would be interesting to test this using compute optimized machines, i.e. c3.8xlarge.
+							</li>
+							<li>
+								Speedup is not guaranteed, it depends on the the granularity of the jobs. i.e. more granular will mean better speedup. Bigger hadoop jobs achieve significant speedups.
+							</li>
+							<li>
+								Hadoop on mesos with delayed scheduling can achieve near perfect data locality.
+							</li>
+							<li>
+								Task launch overhead scales linearly with the number of nodes.
+							</li>
+							<li>
+								Linux Containers mitigate the noisy neighbour problem, but isolation is not perfect.
+								Seems like this is something the scheduler can handle.
+							</li>
 						</ul>
 						<li>
 							7. Related Work
 						</li>
-						<ul></ul>
+						<ul>
+							<li>
+								EC2 + <a href="https://www.eucalyptus.com/eucalyptus-cloud/documentation">Eucalyptus</a> is simlar, but uses VMs as allocation.
+								Less granular -> worse utilization.
+							</li>
+							<li>
+								Next-Gen Hadoop (<a href="http://hadoop.apache.org/docs/current/hadoop-yarn/hadoop-yarn-site/YARN.html">YARN</a>
+								uses unix processes, which means less isolation and only lets you specify memory constraints.
+								Also it's very Hadoop specifc, which means more optimizations for Hadoop, but won't work for general jobs and services.
+							</li>
+						</ul>
 					</ul>
 
 				</div>
