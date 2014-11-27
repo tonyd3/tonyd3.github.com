@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="author" content="Tony Dong">
+		<title>Reading of Mesos</title>
+
+		<!-- Bootstrap core CSS -->
+		<link href="./dist/css/bootstrap.css" rel="stylesheet">
+		<link href="./dist/css/carousel.css" rel="stylesheet">
+		<link href="./assets/css/pygments-manni.css" rel="stylesheet">
+
+		<script>
+			var _gaq = _gaq || [];
+			_gaq.push(['_setAccount', 'UA-38085017-1']);
+			_gaq.push(['_setDomainName', 'tony-dong.com']);
+			_gaq.push(['_setAllowLinker', true]);
+			_gaq.push(['_trackPageview']);
+
+			(function() {
+				var ga = document.createElement('script');
+				ga.type = 'text/javascript';
+				ga.async = true;
+				ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+				var s = document.getElementsByTagName('script')[0];
+				s.parentNode.insertBefore(ga, s);
+			})();
+		</script>
+
+	</head>
+	<!-- NAVBAR
+	================================================== -->
+	<body>
+		<div class="navbar-wrapper">
+			<div class="container">
+				<div class="navbar navbar-inverse navbar-fixed-top">
+					<div class="container">
+						<div class="navbar-header">
+							<a class="navbar-brand" href="./index.html">Tony Dong</a>
+						</div>
+						<div class="navbar-collapse collapse">
+							<ul class="nav navbar-nav">
+								<li>
+									<a href="./index.html#about">About</a>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-hover" data-toggle="dropdown">Projects</a>
+									<ul class="dropdown-menu">
+										<li>
+											<a href="./index.html#rhino">Project Rhino</a>
+										</li>
+									</ul>
+								</li>
+								<li>
+									<a href="./index.html#writings">Writings</a>
+								</li>
+								<li>
+									<a href="./resume.html">Resume</a>
+								</li>
+								<li>
+									<a href="./resume.pdf">Resume PDF</a>
+								</li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div id="rhino">
+				<hr class="divider">
+				<div class="row featurette">
+					<h1>Reading of Mesos</h1>
+					<p>
+						These are some notes I made while reading <a href="http://people.csail.mit.edu/matei/papers/2011/nsdi_mesos.pdf">Mesos: A Platform for Fine-Grained Resource Sharing in the Data Center</a>
+					</p>
+					<h3>Idea Highlights</h3>
+					<ul>
+						<li>
+							Minimize what Mesos is responsible for, so it can be good at what it does.
+						</li>
+						<li>
+							Data locality means havings easy migration of frameworks without data duplication.
+						</li>
+					</ul>
+					<h3>Notes</h3>
+					<ul>
+						<li>
+							1. Introduction
+						</li>
+						<ul>
+							<li>
+								Multiplex a cluster between different frameworks to improve utilization.
+							</li>
+							<li>
+								Doesn't do scheduling because it's too hard, so it delegates that to the framework. Hence why we have things like Aurora, Marathon, and Chronos.
+							</li>
+							<li>
+								Handles resource offers to each framework.
+							</li>
+							<li>
+								Can do multiple versions of the same framework(i.e. Hadoop); to isolate prod vs devel, and for rolling out new versions.
+							</li>
+						</ul>
+						<li>
+							2. Target Environment
+						</li>
+						<ul>
+							<li>
+								Facebook (2011) 2000-node Hadoop cluster, for periodic prod jobs, experiments, and Hive queries.
+								Stuck with Hadoop because having a different framework would mean duplicating all of that data as well.
+							</li>
+						</ul>
+
+						<li>
+							3. Architecture
+						</li>
+						<ul>
+							<li>
+								Minimal interface, push control to the scheduler. Lets frameworks implement complex scheduling solutions while keeping Mesos simple.
+							</li>
+							<li>
+								Single active master, all masters maintain current state through zookeeper quorum.
+							</li>
+							<li>
+								Framework = Scheduler + executor
+							</li>
+							<li>
+								Frameworks indicate interest in offers, the master offers resources to frameworks, then it replies with task description. 
+							</li>
+							<li>
+								Rejection of resources(using filters) allows the frameworks to implement a more complicated resource constraint model.
+								Filters are an optimization on having the framework reject offers personally, but apparently it performs ok without filters.
+							</li>
+							<li>
+								Mesos may kill tasks/revoke resources of long running tasks, so it seems like it's originally designed for short running tasks.
+							</li>
+							<li>
+								Guaranteed allocations given to frameworks to keep long running tasks. 
+							</li>
+							<li>
+								
+							</li>
+						</ul>
+						<li>
+							4. Mesos Behavior
+						</li>
+						<ul></ul>
+						<li>
+							5. Implementation
+						</li>
+						<ul></ul>
+						<li>
+							6. Evaluation
+						</li>
+						<ul>
+
+						</ul>
+						<li>
+							7. Related Work
+						</li>
+						<ul></ul>
+					</ul>
+
+				</div>
+			</div>
+
+			<footer class="container" role="footer">
+				<div class="bs-social">
+					<ul class="bs-social-buttons">
+						<li class="tweet-btn">
+							<a href="https://twitter.com/share" class="twitter-share-button" data-url="http://tony-dong.com/mesos.html" data-count="horizontal">Tweet</a>
+						</li>
+					</ul>
+				</div>
+			</footer>
+
+			<!-- ================================================== -->
+
+			<script src="./assets/js/jquery.js"></script>
+			<script src="./dist/js/bootstrap.min.js"></script>
+			<script src="./assets/js/holder.js"></script>
+			<script src="http://platform.twitter.com/widgets.js"></script>
+	</body>
+</html>
