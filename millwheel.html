@@ -79,7 +79,7 @@
 					<h3>Idea Highlights</h3>
 					<ul>
 						<li>
-							Exactly once delivery of a record is non-trivial. If Millwheel can guarantee it, then it means processing become a lot easier.
+							Exactly once delivery of a record is non-trivial. If MillWheel can guarantee it, then it means processing become a lot easier.
 						</li>
 						<li>
 							"Hinges upon its ability to take non-idempotent user code and run it as it were idempotent." Although, if the user write idempotent code, then we can relax the restrictions and the system will perform significantly faster.
@@ -193,7 +193,7 @@
 								"Hinges upon its ability to take non-idempotent user code and run it as it were idempotent."
 							</li>
 							<li>
-								Exactly-once delivery: Retry messages until Acked (at least once), and then deduplicate. Is a bloomfilter and an <a href="https://github.com/jmhodges/opposite_of_a_bloom_filter">opposite of a bloom filter</a> together maybe a better solution?
+								Exactly-once delivery: Retry messages until Acked (at least once), and then deduplicate. Is a bloom filter and an <a href="https://github.com/jmhodges/opposite_of_a_bloom_filter">opposite of a bloom filter</a> together maybe a better solution?
 							</li>
 							<li>
 								Can disable deduplication if the user's operations are idempotent already.
