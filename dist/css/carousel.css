@@ -41,15 +41,6 @@ body {
   height: 600px;
 }
 
-
-
-
-/* Pad the edges of the mobile views a bit */
-.content {
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
 /* Center align the text within the three columns below the carousel */
 .content .col-lg-4 {
   text-align: center;
