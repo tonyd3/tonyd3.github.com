@@ -2,14 +2,29 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="author" content="Tony Dong">
   <title>Tony Dong </title>
 
-  <!-- Bootstrap core CSS -->
+  <link href="./dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="./dist/css/bootstrap.css" rel="stylesheet">
   <link href="./dist/css/carousel.css" rel="stylesheet">
+  <link href="./dist/css/style.css" rel="stylesheet">
   <link href="./assets/css/pygments-manni.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!--[if lt IE 9]>
+  <script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="//oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="./dist/js/bootstrap.min.js"></script>
+  <script src="./dist/js/parallax.min.js"></script>
+  <script src="./dist/js/jquery.js"></script>
+  <script src="./dist/js/holder.js"></script>
+  <script src="http://platform.twitter.com/widgets.js"></script>
 
   <script>
 			var _gaq = _gaq || [];
@@ -27,17 +42,28 @@
 				s.parentNode.insertBefore(ga, s);
 			})();
 
+      $(function(){
+        if (navigator.userAgent.match(/(iPod|iPhone|iPad|Android)/)) {
+          $('#ios-notice').removeClass('hidden');
+          $('.parallax-container').height( $(window).height() * 1 | 0 );
+        } else {
+          $(window).resize(function(){
+            var parallaxHeight = Math.max($(window).height() * 1, 200) | 0;
+            $('.parallax-container').height(parallaxHeight);
+          }).trigger('resize');
+        }
+      });
 
 
 
   </script>
 
 </head>
-<!-- NAVBAR
-================================================== -->
+
 <body>
-<div class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
+<section>
+  <div class="navbar navbar-inverse navbar-fixed-top">
+
     <div class="navbar-header">
       <a class="navbar-brand" href="#home">Tony Dong</a>
     </div>
@@ -47,15 +73,23 @@
           <a href="#about">About</a>
         </li>
         <li class="dropdown">
+          <a href="#" class="dropdown-hover" data-toggle="dropdown">Recent Media</a>
+          <ul class="dropdown-menu">
+            <li>
+              <a href="#sf-microservices">SF Microservices</a>
+            </li>
+            <li>
+              <a href="#aurora">Aurora Users Group</a>
+            </li>
+          </ul>
+        </li>
+        <li class="dropdown">
           <a href="#" class="dropdown-hover" data-toggle="dropdown">Projects</a>
           <ul class="dropdown-menu">
             <li>
               <a href="#rhino">Project Rhino</a>
             </li>
           </ul>
-        </li>
-        <li>
-          <a href="#writings">Writings</a>
         </li>
         <li>
           <a href="#music">Music</a>
@@ -69,140 +103,143 @@
       </ul>
     </div>
   </div>
-</div>
 
-<div id="home"/>
+  <div id="home"/>
+</section>
+
+<hr class="featurette-divider">
+
 
 <div class="container">
-  <hr class="featurette-divider">
   <div class="row featurette" id="about">
-    <div class="col-md-7">
-      <h2 class="featurette-heading">Tony Dong</h2>
-      <p class="lead">
-        &#x2601;&#x1F914;
-      </p>
-    </div>
-    <div class="col-md-5">
-      <img class="featurette-image img-responsive" src="./media/me.jpg"/>
+    <div class="col-md-12">
+      <center><h2 class="featurette-heading">Tony Dong</h2></center>
+      <center><p class="lead">&#x2601;&#x1F914;</p></center>
     </div>
   </div>
-
-  <div id="recent-talks">
-    <hr class="featurette-divider">
-    <div class="row featurette">
-      <div class="col-md-3">
-        <h2 class="featurette-heading">Recent Talks</h2>
-        <p class="lead">
-          SF Microservices - July 2016
-        </p>
-      </div>
-      <div class="col-md-9">
-        <video width="800" height="450" src="./media/videos/sf-microservices-july-2016.mp4"
-               controls>
-          <div class="fallback">
-            <p>
-              You must have an HTML5 capable browser.
-            </p>
-          </div>
-        </video>
-        <p></p>
-      </div>
-    </div>
-    <div class="row featurette">
-
-      <div class="col-md-3">
-        <h2 class="featurette-heading"></h2>
-        <p class="lead">
-          Bay Area Apache Aurora Users Group - May 2015
-        </p>
-      </div>
-      <div class="col-md-9">
-        <iframe width="800" height="450" src="https://www.youtube.com/embed/yXkOgnyK4Hw" frameborder="0" allowfullscreen></iframe>
-        <p></p>
-      </div>
-
-    </div>
-  </div>
-  <div id="rhino">
-    <hr class="featurette-divider">
-    <div class="row featurette">
-      <div class="col-md-3">
-        <h2 class="featurette-heading">Project Rhino</h2>
-        <p class="lead">
-          Power Music Search
-        </p>
-      </div>
-      <div class="col-md-9">
-        <video width="800" height="450" src="./media/videos/rhinoDemoVideo.mp4" controls>
-          <div class="fallback">
-            <p>
-              You must have an HTML5 capable browser.
-            </p>
-          </div>
-        </video>
-      </div>
-    </div>
-  </div>
-  <div id="others">
-    <hr class="featurette-divider">
-    <div class="row featurette" id="writings">
-
-      <div class="col-md-5">
-        <img class="featurette-image img-responsive" src="./media/hemingway.jpg"/>
-      </div>
-      <div class="col-md-7">
-        <h2 class="featurette-heading">Writings</h2>
-        <p class="lead">Coming Soon</p>
-      </div>
-    </div>
-
-    <hr class="featurette-divider">
-    <div class="row featurette" id="music">
-
-      <div class="col-md-5">
-        <h2 class="featurette-heading">My Music</h2>
-        <p class="lead">
-          My Current Playlist
-        </p>
-      </div>
-      <div class="col-md-7">
-        <iframe
-            src="https://embed.spotify.com/?uri=spotify:user:1297307352:playlist:28x7upNJqpaFECwAcisICu"
-            width="300" height="380" frameborder="0" allowtransparency="true"></iframe>
-      </div>
-    </div>
-  </div>
-
-  <!-- /END THE FEATURETTES -->
-
-  <!-- FOOTER -->
-  <footer class="container" role="contentinfo">
-    <div class="bs-social">
-      <ul class="bs-social-buttons">
-
-        <li class="follow-btn">
-          <a href="https://twitter.com/TonyDong3" class="twitter-follow-button"
-             data-link-color="#0069D6" data-show-count="true">Follow @TonyDong3</a>
-        </li>
-        <li class="tweet-btn">
-          <a href="https://twitter.com/share" class="twitter-share-button"
-             data-url="http://tony-dong.com/" data-count="horizontal">Tweet</a>
-        </li>
-        <li>
-          <iframe class="github-btn"
-                  src="http://ghbtns.com/github-btn.html?user=tonyd3&type=follow&count=true"
-                  width="130" height="20" title="Fork on GitHub"></iframe>
-        </li>
-      </ul>
-    </div>
-  </footer>
 </div>
 
-<!-- ================================================== -->
 
-<script src="./assets/js/jquery.js"></script>
-<script src="./dist/js/bootstrap.min.js"></script>
-<script src="./assets/js/holder.js"></script>
-<script src="http://platform.twitter.com/widgets.js"></script>
+<hr class="featurette-divider">
+
+<div class="parallax-container" data-parallax="scroll" data-bleed="10" data-speed="0.2"
+     data-image-src="./dist/img/IMG_1164.JPG" data-natural-width="3264"
+     data-natural-height="2448"></div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette" id="sf-microservices">
+  <div class="col-md-3">
+    <center><h2 class="featurette-heading">Recent Talks</h2></center>
+    <center><p class="lead">SF Microservices - July 2016</p></center>
+  </div>
+  <div class="col-md-9">
+    <center>
+      <video width="800" height="450" src="./media/videos/sf-microservices-july-2016.mp4"
+             controls>
+        <div class="fallback">
+          <p>
+            You must have an HTML5 capable browser.
+          </p>
+        </div>
+      </video>
+    </center>
+  </div>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette">
+  <div class="col-md-3" id="aurora">
+    <h2 class="featurette-heading"></h2>
+    <p class="lead">
+      Bay Area Apache Aurora Users Group - May 2015
+    </p>
+  </div>
+  <div class="col-md-9">
+    <iframe width="800" height="450" src="https://www.youtube.com/embed/yXkOgnyK4Hw"
+            frameborder="0" allowfullscreen></iframe>
+    <p></p>
+  </div>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="parallax-container" data-parallax="scroll" data-bleed="10" data-speed="0.2"
+     data-image-src="./dist/img/IMG_6462.JPG" data-natural-width="3024"
+     data-natural-height="3024"></div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette" id="rhino">
+  <div class="col-md-3">
+    <h2 class="featurette-heading">Project Rhino</h2>
+    <p class="lead">
+      Power Music Search
+    </p>
+  </div>
+  <div class="col-md-9">
+    <video width="800" height="450" src="./media/videos/rhinoDemoVideo.mp4" controls>
+      <div class="fallback">
+        <p>
+          You must have an HTML5 capable browser.
+        </p>
+      </div>
+    </video>
+  </div>
+</div>
+
+
+<hr class="featurette-divider">
+
+<div class="parallax-container" data-parallax="scroll" data-bleed="10" data-speed="0.2"
+     data-image-src="./dist/img/IMG_4657.jpg" data-natural-width="3024"
+     data-natural-height="3024"></div>
+
+<hr class="featurette-divider">
+
+<div class="row featurette" id="music">
+  <div class="col-md-5">
+    <h2 class="featurette-heading">My Playlists</h2>
+    <p class="lead">
+      My Current Playlist
+    </p>
+  </div>
+  <div class="col-md-7">
+    <iframe
+        src="https://embed.spotify.com/?uri=spotify:user:1297307352:playlist:28x7upNJqpaFECwAcisICu"
+        width="500" height="380" frameborder="0" allowtransparency="true"></iframe>
+  </div>
+</div>
+
+<hr class="featurette-divider">
+
+<div class="parallax-container" data-parallax="scroll" data-bleed="10" data-speed="0.2"
+     data-image-src="./dist/img/IMG_4709.jpg" data-natural-width="3024"
+     data-natural-height="3024"></div>
+
+<!-- FOOTER -->
+<footer class="container" role="contentinfo">
+  <div class="bs-social">
+    <ul class="bs-social-buttons">
+
+      <li class="follow-btn">
+        <a href="https://twitter.com/TonyDong3" class="twitter-follow-button"
+           data-link-color="#0069D6" data-show-count="true">Follow @TonyDong3</a>
+      </li>
+      <li class="tweet-btn">
+        <a href="https://twitter.com/share" class="twitter-share-button"
+           data-url="http://tony-dong.com/" data-count="horizontal">Tweet</a>
+      </li>
+      <li>
+        <iframe class="github-btn"
+                src="http://ghbtns.com/github-btn.html?user=tonyd3&type=follow&count=true"
+                width="130" height="20" title="Fork on GitHub"></iframe>
+      </li>
+    </ul>
+  </div>
+</footer>
 </body>
 </html>
+
+
